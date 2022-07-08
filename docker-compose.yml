@@ -1,0 +1,41 @@
+version: "3.4"
+
+x-base: &base
+    env_file: backend/.env
+    build: 
+      context : backend/
+      dockerfile: Dockerfile.dev
+
+services:
+  db:
+    container_name: mongo
+    build: 
+      context : db/mongo/
+      dockerfile: Dockerfile
+    volumes:
+      - datadb:/data/db
+    env_file: db/mongo/.env  
+    ports:
+      - '27017:27017'
+  
+  app:
+    <<: *base
+    container_name: nodeapp
+    entrypoint: ['entrypoints/start_server.sh']
+    volumes:
+      - ./backend_app:/backend
+      - backend_dev:/backend/node_modules
+    healthcheck:
+      test: 'curl --fail http://localhost:4000/api/health/ || exit 1'
+      interval: 2m
+      timeout: 10s
+      retries: 3
+    depends_on: 
+      - db 
+    ports:
+      - '4000:4000'
+
+volumes:
+  datadb:  
+  backend_app:
+  backend_dev:
