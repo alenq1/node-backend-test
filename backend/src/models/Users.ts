@@ -15,10 +15,6 @@ export interface IUser extends Document{
     username: string,
     password: string,
     email: string,
-    // role: string,
-    // active: boolean,
-    // created: Date,
-    // updated: Date,
     save(): any,
     encryptPassword(password: string): Promise<string>,
     validatePassword(password: string): Promise<boolean>,
@@ -49,26 +45,7 @@ const userSchema = new Schema({
         required: true,
         lowercase: true
     },
-    // role: {
-    //     type: String, 
-    //     enum: ['admin', 'normal', 'privileged'],
-    //     required: true,
-    //     default: 'normal'
-    // },
-    // active:{
-    //     type: Boolean,
-    //     required: true,
-    //     default: false
-    // },
-    // created: {
-    //     type: Date, 
-    //     default: Date.now()
-    // },
-    // updated: { 
-    //     type: Date, 
-    //     default: Date.now(), 
-    //     required:true
-    // }
+    
 })
 
 userSchema.methods.generateAccessToken = async function(user: string, id: string): Promise<any> { 

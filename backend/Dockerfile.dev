@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:lts-alpine
 
 RUN apk --no-cache add curl
 
@@ -8,14 +8,20 @@ ENV PATH /backend/node_modules/.bin:$PATH
 
 COPY ["package.json", "package-lock.json*", "./"]
 
+
+
+
 RUN npm config rm proxy && npm config rm https-proxy
 RUN npm config set registry http://registry.npmjs.org/
+
 RUN npm install --verbose && npm cache clean --force
 #RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-#RUN chown -R node:node /backend/* 
-USER node
+RUN chown -R node:node /backend/* 
+user node
+# COPY ./ ./
 
 
 
-#ENTRYPOINT [ "./entrypoint.sh" ]
-#CMD ["npm", "start"]
+
+# ENTRYPOINT [ "npm run build" ]
+# CMD ["npm", "run"]

@@ -1,7 +1,9 @@
 #!/bin/sh 
 
-npm run devstart
+
+npm run start:dev
 
 # if only build for final productiosn
-#npm run start
+# npm run build
+# npm run start:server
 

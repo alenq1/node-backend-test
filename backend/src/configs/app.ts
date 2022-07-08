@@ -32,6 +32,6 @@ mongoDB.once('open', () => {
     console.log('connected to MONGO database')
     // CreateAdmin('mongo')
 })
-mongoDB.on('error', (error) => {console.error(error, 'MONGO CONNECTION ERROR')})
+mongoDB.on('error', (error: any) => {console.error(error, 'MONGO CONNECTION ERROR')})
 
 export default app

@@ -40,8 +40,8 @@ const mainSettings = {
     apikeys: {
         s3BucketKey: process.env.S3_KEY,
         s3Secret: process.env.S3_SECRET,
-        unsplashAccesKey: "QugJINt91RsRs_Bqbh_na6jtvKZfLAUxmyYgvA0-Fco",
-        unsplashSecretKey: "YOxum81wkBKDRj4RkApxzn8xQTpsbhLRFVQcg9O9l_g"
+        unsplashAccesKey: process.env.UNSPLASH_ACCESS_KEY,
+        unsplashSecretKey: process.env.UNSPLASH_SECRET_KEY
 
     },
 
