@@ -13,18 +13,21 @@
 
 ### Endpoints
     
-    Login (api/user/login) 
+### Login (api/user/login) 
         - Metodo POST se ingresa las credenciales en el body en formato json de la siguiente forma
         
+        ```json
         {
             "username": "user3",
             "password": "user1234"
         }
+        ```
 
         - La entrada de estos campos esta con una validacion que sean de tipo string y la contraseña de minimo 6 caracteres
 
         - La respuesta sera en formato json de la siguiente forma siendo lo mas destacado los campos de accessToken y refreshToken que se necesitaran colocar en en los demas endpoints para poder realizar las peticiones
 
+    ``` json
         {
             "error": false,
             "status": "Login Success",
@@ -35,15 +38,17 @@
                 "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjMiLCJpZCI6IjYyYzc4Njc3Mzg0ZDRhNzFmZTBjZDQ0MiIsImlhdCI6MTY1NzI0ODgyNCwiZXhwIjoxNjU3MjkyMDI0fQ.ON6APrXyIiHKB87ZWMzMVw1tx1QZ0TN46SB8Uk06FK0"
             }
         }
-    
-    Registro (api/user/register)
+    ```
+### Registro (api/user/register)
         - Metodo POST se ingresa las credenciales iniciales en el body en formato json de la siguiente forma
         
+        ```json
         {
             "username": "user4",
             "password": "user4567",
             "email": "user4@user.com"
         }
+        ```
 
         - La entrada de estos campos esta con las siguientes validaciones
             - username: 
@@ -68,7 +73,7 @@
             }
         ```
 
-    Recuperacion de contraseña con email (api/user/recover)
+### Recuperacion de contraseña con email (api/user/recover)
         - Metodo POST se ingresa el email del usuario en el body en formato json de la siguiente forma
 
         ```json
@@ -96,11 +101,13 @@
 
         - El mensaje del correo se muestra de la sigiuente formato
 
+        ```
             Hi user3
             Yuor new password is 0bd966d0-3020-479d-9f99-5b8bc6bf3f44 for recover your account
+        ```
     
     
-    Subida de archivos AWS(/api/file/upload)
+### Subida de archivos AWS(/api/file/upload)
         - Metodo POST se ingresa por medio del body como formato files el archivo a subir
         - Adicionalmente para estos endpoints se necesita el access-token en los headers
         - Este token tiene una duracion definida en las variables de entorno o en el archivo de configuracion (mainSettings)
@@ -126,7 +133,7 @@
         } FILE UPLOADED SERVICE        
         ```
 
-    Listado de archivos AWS (/api/file/manage)   
+### Listado de archivos AWS (/api/file/manage)   
         - Metodo GET este endpoint es utilitario para listar los nombres de los archivos que estan en el bucket S3 para poder realizar la descarga de los mismos
         - Necesita el access-token en los headers
         - La respuesta satisfactoria se muestra de la siguiente forma
@@ -139,19 +146,20 @@
                 "1657212788396dowloadUploadTest",
                 "1657215476110coding-924920_1920.jpg" 
             ]
-        }```
+        }
+        ```
 
-    Bajada de archivos AWS (/api/file/download/:key)
+### Bajada de archivos AWS (/api/file/download/:key)
         - Metodo POST se ingresa en el parametro key en de url con el nombre del archivo a descargar por ejemplo
         - Necesita el access-token en los headers
 
-        /api/file/download/16572476927981657247691778dowloadUploadTest.jpg
+        `/api/file/download/16572476927981657247691778dowloadUploadTest.jpg`
 
         - Esto crea un archivo con un el respectivo nombre en la carpeta /src/temp/files/ donde se puede comprobar que se ha descargado el archivo
         
         - Este endpoint presenta problemas en la respuesta final
 
-    Buscador de Imagenes Online (api/image/search)
+### Buscador de Imagenes Online (api/image/search)
         - Metodo POST se ingresa en el parametro find en el body en formato json de la siguiente forma               
         
         ```json
@@ -172,7 +180,7 @@
 
         - El parametro message sera la url necesaria para poder ejecutar el proximo endpoint de subida de imagen 
 
-    Subida de Imagen a AWS desde API externa (/api/image/upload)
+### Subida de Imagen a AWS desde API externa (/api/image/upload)
         - Metodo POST se ingresa en el parametro find en el body en formato json de la siguiente forma
 
         ```json 
@@ -197,7 +205,10 @@
             "message": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidXNlcjQiLCJpZCI6IjYyYzc4NmJhOTc5OWExNTkxNGQwYTZhMSIsImlhdCI6MTY1NzI1MjI5OCwiZXhwIjoxNjU3MjUyODk4fQ.Ggdfx-toAJ4MLIJjnHT3v08Pony-JqqrZd2Mrvqtak4"
         }
         ``` 
+### Docker
 
+    - El servicio de base de datos mongdb y la aplicacion node estan configuradas en un archivo docker-compose.yml para arrancar los servicios el comando es el siguiente
 
+    ` docker-compose up -d `
 
-
+    - En el archivo /entrypoint/start_server.sh se ejecutan comandos que se pueden utilizar para arrancar en modo desarrollo o compilado 
